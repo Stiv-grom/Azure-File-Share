@@ -34,9 +34,14 @@ namespace Azure_File_Share.Controllers
             return View();
         }
 
-
         public IActionResult Error()
         {
+            return View();
+        }
+
+        public IActionResult UploadSuccess(string fileUrl)
+        {
+            ViewData["Message"] = fileUrl; 
             return View();
         }
     }

@@ -28,21 +28,21 @@ namespace Azure_File_Share.Controllers
         [HttpPost("UploadFiles")]
         public async Task<IActionResult> Upload(List<IFormFile> files)
         {
-            long size = files.Sum(f => f.Length);
+            //long size = files.Sum(f => f.Length);
 
-            // full path to file in temp location
-            var filePath = Path.GetTempFileName();
-            var azureConnString = this.GetAzureConfigString();
-            foreach (var formFile in files)
-            {
-                if (formFile.Length > 0)
-                {
-                    using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await formFile.CopyToAsync(stream);
-                    }
-                }
-            }
+            //// full path to file in temp location
+            //var filePath = Path.GetTempFileName();
+            //var azureConnString = this.GetAzureConfigString();
+            //foreach (var formFile in files)
+            //{
+            //    if (formFile.Length > 0)
+            //    {
+            //        using (var stream = new FileStream(filePath, FileMode.Create))
+            //        {
+            //            await formFile.CopyToAsync(stream);
+            //        }
+            //    }
+            //}
 
             #region upload_to_azure
             //FileInfo file = new FileInfo(@"C:\...\file.txt");
@@ -65,7 +65,10 @@ namespace Azure_File_Share.Controllers
             // Don't rely on or trust the FileName property without validation.
 
             //return Ok(new { count = files.Count, size, filePath });
-            return Json(new { hasError = true}); // return file url
+            //return RedirectToAction("Index", "Home/UploadSuccess", new { fileUrl = "adsdasdasd" });
+            return RedirectToAction("UploadSuccess", "Home", new { fileUrl = "adsdasdasd" });
+            //return View("~/Views/Home/UploadSuccess.cshtml", "link-guug-g-g-g");
+            //return Json(new { hasError = true}); // return file url
         }
 
         private string GetAzureConfigString()

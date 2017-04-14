@@ -24,3 +24,6 @@ Thumbs.db
 /.vs
 /src/Azure-File-Share/bin/
 /src/Azure-File-Share/obj/
+/src/Azure-File-Share.Core/bin/
+/src/Azure-File-Share.Core/obj/
+
