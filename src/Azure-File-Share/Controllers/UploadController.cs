@@ -66,7 +66,7 @@ namespace Azure_File_Share.Controllers
 
             //return Ok(new { count = files.Count, size, filePath });
             //return RedirectToAction("Index", "Home/UploadSuccess", new { fileUrl = "adsdasdasd" });
-            return RedirectToAction("UploadSuccess", "Home", new { fileUrl = "adsdasdasd" });
+            return RedirectToAction("UploadSuccess", "Home", new { fileUrl = files[0].FileName });
             //return View("~/Views/Home/UploadSuccess.cshtml", "link-guug-g-g-g");
             //return Json(new { hasError = true}); // return file url
         }
@@ -85,6 +85,12 @@ namespace Azure_File_Share.Controllers
                 .Build();
 
             return config.GetSection("ConnectionStrings:StorageConnectionString").Value;
+        }
+
+        public IActionResult UploadSuccess(string fileUrl)
+        {
+            ViewData["Message"] = fileUrl;
+            return View();
         }
     }
 }

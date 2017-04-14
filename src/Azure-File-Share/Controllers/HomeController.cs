@@ -30,8 +30,8 @@ namespace Azure_File_Share.Controllers
         public IActionResult Upload()
         {
             ViewData["Message"] = "You can upload files here";
-
-            return View();
+            RedirectToActionResult redirectResult = new RedirectToActionResult("Index", "Upload", null);
+            return redirectResult;
         }
 
         public IActionResult Error()
@@ -41,8 +41,8 @@ namespace Azure_File_Share.Controllers
 
         public IActionResult UploadSuccess(string fileUrl)
         {
-            ViewData["Message"] = fileUrl; 
-            return View();
+            RedirectToActionResult redirectResult = new RedirectToActionResult("UploadSuccess", "Upload", new { fileUrl = fileUrl });
+            return redirectResult;
         }
     }
 }
