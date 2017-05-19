@@ -9,7 +9,7 @@
             <div class="alert alert-success">
                 Success! Your files were successfully uploaded.
                 Share the link with your friends:
-                <h2>@ViewData["Message"]</h2>
+                <a href="@Context.Request.Host@ViewData["Message"]">@Context.Request.Host/@ViewData["Message"]</a>
             </div>
         </div>
     </div>

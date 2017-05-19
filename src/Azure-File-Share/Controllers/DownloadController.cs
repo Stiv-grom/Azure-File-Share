@@ -1,26 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.IO.Compression;
 using System.IO;
+using Microsoft.WindowsAzure.Storage;
+using Azure_File_Share.Helpers;
+using Azure_File_Share.Core.Implementations;
+using System.Threading.Tasks;
 
 namespace Azure_File_Share.Controllers
 {
     public class DownloadController : Controller
     {
+        CloudStorageAccount storageAccount;
+        CommonFunctions comFunc = new CommonFunctions();
+        public DownloadController()
+        {
+            storageAccount = CloudStorageAccount.Parse(comFunc.GetAzureConfigString());
+        }
+
         public IActionResult Index(string fileUrl)
         {
             ViewData["Message"] = fileUrl;
             return View();
         }
 
-        public FileResult Download(string fileUrl)
+        public async Task<FileResult> Download(string fileUrl)
         {
-            var fileName = $"img.jpg";
-            var filepath = $"Downloads/{fileName}";
-            byte[] fileBytes = System.IO.File.ReadAllBytes(filepath);
+            UserFileManager ufManager = new UserFileManager(storageAccount);
+            var fileName = ufManager.GetFileNameFromUrl(fileUrl);
+            byte[] fileBytes = await ufManager.DownloadFile(fileUrl);
             return File(fileBytes, "application/x-msdownload", fileName);
         }
 

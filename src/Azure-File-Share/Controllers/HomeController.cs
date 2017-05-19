@@ -44,5 +44,14 @@ namespace Azure_File_Share.Controllers
             RedirectToActionResult redirectResult = new RedirectToActionResult("UploadSuccess", "Upload", new { fileUrl = fileUrl });
             return redirectResult;
         }
+        public IActionResult Download()
+        {
+            return View();
+        }
+        public IActionResult Download(string fileUrl)
+        {
+            RedirectToActionResult redirectResult = new RedirectToActionResult("Download", "Download", new { fileUrl = fileUrl });
+            return redirectResult;
+        }
     }
 }
